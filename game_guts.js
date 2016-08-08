@@ -17,6 +17,8 @@ function component(width, height, color, x, y) {
     this.height = height;
     this.x = x;
     this.y = y; 
+    this.speedX = 0;
+    this.speedY = 0;
     ctx = myGameArea.context;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -25,6 +27,10 @@ function component(width, height, color, x, y) {
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY; 
+    } 
 }
 
 
@@ -57,6 +63,7 @@ function updateGameArea() {
     if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
     if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
     if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+    myGamePiece.newPos(); 
     myGamePiece.update();
 }
 
