@@ -38,8 +38,8 @@ function component(width, height, color, x, y) {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 480;
-        this.canvas.height = 270;
+        this.canvas.width = 440;
+        this.canvas.height = 620;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20); // updates the canvas every 20ms
@@ -61,8 +61,10 @@ function updateGameArea() {
     myGamePiece.speedY = 0; 
     if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
     if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
-    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
-    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+    
+    // only allow the GamePiece to move left and right on the canvas
+    //if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
+    //if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
     myGamePiece.newPos(); 
     myGamePiece.update();
 }
