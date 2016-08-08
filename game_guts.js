@@ -48,4 +48,7 @@ function updateGameArea() {
     myGamePiece.update();
 }
 
-
+/****************************
+ * *********** STARTS THE GAME
+ * *************************/
+startGame();
