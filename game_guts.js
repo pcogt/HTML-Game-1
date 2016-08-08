@@ -2,11 +2,12 @@
 
 
 var myGamePiece;
+var defaultCanvasWidth = 440;
 
 // Initiates the game
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(30, 30, "red", 10, 120);
+    myGamePiece = new component(30, 30, "red", 10, 520);
 }
 
 /****** The functions that create the pieces needed for the game *******/
@@ -28,8 +29,20 @@ function component(width, height, color, x, y) {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
     this.newPos = function() {
-        this.x += this.speedX;
-        this.y += this.speedY; 
+        // don't let the GamePiece leave the canvas
+        if(this.x + this.speedX > 0 && this.x + this.speedX <= defaultCanvasWidth - 10) {
+            this.x += this.speedX;
+        }
+        else {
+            if(this.x + this.speedX > defaultCanvasWidth - 10) {
+                this.x = defaultCanvasWidth - 10;
+            }
+            else { // this.x + this.speedX <= 0
+                this.x = 0;
+            }
+        }
+        //this.x += this.speedX;
+        //this.y += this.speedY; 
     } 
 }
 
@@ -39,10 +52,10 @@ var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
         this.canvas.width = 440;
-        this.canvas.height = 620;
+        this.canvas.height = 560;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 20); // updates the canvas every 20ms
+        this.interval = setInterval(updateGameArea, 10); // updates the canvas every 20ms
         window.addEventListener('keydown', function (e) {
             myGameArea.key = e.keyCode;
         })
